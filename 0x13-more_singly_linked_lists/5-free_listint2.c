@@ -1,8 +1,3 @@
-/*
- * File: 5-free_listint2.c
- * Auth: Brennan D Baraban
- */
-
 #include "lists.h"
 
 /**
@@ -25,5 +20,6 @@ void free_listint2(listint_t **head)
 		free(*head);
 		*head = tmp;
 	}
+
 	head = NULL;
 }
