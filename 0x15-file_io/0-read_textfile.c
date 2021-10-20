@@ -1,47 +1,55 @@
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "main.h"
 
 /**
- * read_textfile - function that reads a text file and prints it to the POSIX
- * standard output
- * @filename: file to read
- * @letters: number of letters it should read and print
- * Return: actual numbers it could read and print
+ * main - check the code
+ *
+ * Return: Always 0.
  */
+int read_textfile(const char *filename, int letters){
+    /*
+        where letters is the number of letters it should read and print
+        returns the actual number of letters it could read and print
+        if the file can not be opened or read, return 0
+        if filename is NULL return 0
+        if write fails or does not write the expected amount of bytes, return 0
+    */
 
-ssize_t read_textfile(const char *filename, size_t letters)
+   FILE *fp;
+   fp = fopen(filename,"r+");
+   int numberOfCharacters =0;
+   if(fp){// if true then we can open the file
+   
+   while(letters > 0){
+        
+        if (fgetc(fp) == EOF) {
+            /* file empty, error handling */
+        } else {
+            numberOfCharacters = numberOfCharacters + 1;
+        }
+       letters = letters - 1;
+   } 
+   
+   return numberOfCharacters;
+
+   }else{//We can't open the file
+    return 0;
+   }
+}
+
+int main(int ac, char **av)
 {
-	int fd, fd_read, fd_write;
-	char *buff;
+    ssize_t n;
 
-	if (filename == NULL)
-		return (0);
-	buff = malloc(sizeof(char) * letters);
-	if (buff == NULL)
-		return (0);
-	fd = open(filename, O_RDWR);
-	if (fd == -1)
-	{
-		free(buff);
-		return (0);
-	}
-	fd_read = read(fd, buff, letters);
-	if (fd_read == -1)
-		return (0);
-	fd_write = write(STDOUT_FILENO, buff, fd_read);
-	if (fd_write == -1)
-	{
-		free(buff);
-		return (0);
-	}
-	if (fd_read != fd_write)
-		return (0);
-	free(buff);
-	close(fd);
-	return (fd_write);
+    /*if (ac != 2)
+    {
+        dprintf(2, "Usage: %s filename\n", av[0]);
+        exit(1);
+    }*/
+    n = read_textfile("one.txt", 114);
+    printf("\n(printed chars: %li)\n", n);
+    n = read_textfile(av[1], 1024);
+    printf("\n(printed chars: %li)\n", n);
+    return (0);
 }
