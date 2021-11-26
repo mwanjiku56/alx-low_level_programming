@@ -13,7 +13,6 @@ dlistint_t *insert_dnodeint_at_index(dlistint_t **h, unsigned int idx, int n)
 	dlistint_t *tmp = *h, *tmpcount = *h, *tmp2;
 	dlistint_t *new_node;
 	unsigned int cont = 0;
-
 	if (*h == NULL)
 		return (NULL);
 	while (tmpcount != NULL)
