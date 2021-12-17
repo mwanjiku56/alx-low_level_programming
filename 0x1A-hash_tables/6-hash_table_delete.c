@@ -7,16 +7,16 @@
  */
 void hash_table_delete(hash_table_t *ht)
 {
-	unsigned int j;
+	unsigned int i;
 	hash_node_t *tmp, *actual;
 
 	if (ht == NULL)
 		return;
-	for (j = 0; j < ht->size; j++)
+	for (i = 0; i < ht->size; i++)
 	{
-		if (ht->array[j] != NULL)
+		if (ht->array[i] != NULL)
 		{
-			tmp = ht->array[j];
+			tmp = ht->array[i];
 			while (tmp != NULL)
 			{
 				actual = tmp;
